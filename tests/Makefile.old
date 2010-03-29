@@ -1,0 +1,17 @@
+CC = gcc
+INCLUDE_FLAGS = -I.
+# GSOAP_CFLAGS = $(pkg-config --cflags gsoap --libs)
+GSOAP_CFLAGS = -DLINUX -g -O2 -DWITH_DOM -lgsoap
+CFLAGS = $(INCLUDE_FLAGS) $(GSOAP_CFLAGS)
+OBJS = soap_initialization.o
+TARGET = /usr/lib/ldap
+WSDL = http://localhost:8191/JMSService?wsdl
+
+# $@ is the name of the file to be made.
+# $? is the names of the changed dependents. 
+
+.c.o:
+	$(CC) $(CFLAGS) -o $@ $?
+
+clean:
+	-rm -f *.o *.so
